@@ -73,9 +73,9 @@ public class PlayerBlockInteraction : MonoBehaviour {
     }
 
     private void BreakBlock() {
-        // CHECK IF TARGET BLOCK EXISTS
+        // CHECK IF TARGET BLOCK EXISTS AND IS WITHIN WORLD BOUNDS
         if (currTargetBlock == null) return;
-
+        
         WorldHandler.instance.BreakBlock(currTargetBlock);
     }
 

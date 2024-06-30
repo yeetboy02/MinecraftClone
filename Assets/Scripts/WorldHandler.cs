@@ -38,6 +38,10 @@ public class WorldHandler : MonoBehaviour {
     #region Methods
 
     public void PlaceBlock(Vector3 position) {
+        // CHECK IF POSITION IS WITHIN WORLD BOUNDS
+        if (position.x < 0 || position.x >= worldSize.x || position.y < 0 || position.y >= worldSize.y || position.z < 0 || position.z >= worldSize.z)
+            return;
+
         // INSTANTIATE BLOCK
         GameObject currBlock = Instantiate(blockPrefab, position, Quaternion.identity);
 
@@ -46,11 +50,8 @@ public class WorldHandler : MonoBehaviour {
     }
 
     public void BreakBlock(GameObject block) {
-        
         // GET BLOCK POSITION
         Vector3 blockPosition = block.transform.position;
-
-        Debug.Log(blockPosition);
 
         // REMOVE BLOCK FROM WORLD BLOCK LIST
         currWorld[(int)blockPosition.x, (int)blockPosition.y, (int)blockPosition.z] = null;
