@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private Vector3 currInputVector;
 
+    private Vector3 currDirectionalMovementVector;
+
     #endregion
 
     #region Setup
@@ -30,13 +32,21 @@ public class PlayerMovement : MonoBehaviour {
     #region Movement
 
     void Update() {
+        // UPDATE CURRENT MOVEMENT VECTOR DIRECTION
+        UpdateMovementDirection();
+
         // MOVE EVERY FRAME
         Move();
     }
 
     private void Move() {
         // MOVE PLAYER BY CURRENT INPUT VECTOR
-        controller.Move(currInputVector * movementSpeed * Time.deltaTime);
+        controller.Move(currDirectionalMovementVector * movementSpeed * Time.deltaTime);
+    }
+
+    private void UpdateMovementDirection() {
+        // SET CURRENT DIRECTIONAL MOVEMENT VECTOR TO FACE IN CAMERA DIRECTION
+        currDirectionalMovementVector = Camera.main.transform.forward * currInputVector.z + Camera.main.transform.right * currInputVector.x;
     }
 
     #endregion
