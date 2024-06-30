@@ -12,8 +12,6 @@ public class WorldHandler : MonoBehaviour {
             if (instance != null)
                     return;
             instance = this;
-            
-            DontDestroyOnLoad(gameObject);
 
             // INITIALIZE WORLD ARRAY
             currWorld = new GameObject[(int)worldSize.x, (int)worldSize.y, (int)worldSize.z];
