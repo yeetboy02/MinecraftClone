@@ -6,7 +6,7 @@
             "id": "b73ed2bc-64d4-4c80-8c6e-d05543f79024",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "PlayerMovement",
                     "type": "Value",
                     "id": "523137dd-df9c-49a6-8e48-506b5e22bf6e",
                     "expectedControlType": "Vector3",
@@ -17,13 +17,13 @@
             ],
             "bindings": [
                 {
-                    "name": "3D Vector",
+                    "name": "Movement",
                     "id": "19e55a92-624e-4f80-85c9-839928d7dc86",
                     "path": "3DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "PlayerMovement",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -34,7 +34,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -45,7 +45,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -56,7 +56,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -67,7 +67,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -78,7 +78,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -89,7 +89,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
