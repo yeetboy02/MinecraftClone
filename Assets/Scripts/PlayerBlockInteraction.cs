@@ -51,8 +51,6 @@ public class PlayerBlockInteraction : MonoBehaviour {
 
             // SET CURRENT TARGET POSITION
             currTargetFaceNormal = hit.normal;
-
-            Debug.Log(hit.normal);
         }
         else {
             // RESET CURRENT TARGET BLOCK
@@ -78,9 +76,7 @@ public class PlayerBlockInteraction : MonoBehaviour {
         // CHECK IF TARGET BLOCK EXISTS
         if (currTargetBlock == null) return;
 
-        // DESTROY AND RESET TARGET BLOCK
-        Destroy(currTargetBlock);
-        currTargetBlock = null;
+        WorldHandler.instance.BreakBlock(currTargetBlock);
     }
 
     #endregion
@@ -96,8 +92,7 @@ public class PlayerBlockInteraction : MonoBehaviour {
         // CHECK IF CURRENTLY A BLOCK PLACABLE
         if (!currBlockPlaceable) return;
 
-        // INSTANTIATE BLOCK AT POSITION BLOCK WIDTH AWAY FROM TARGET BLOCK FACE
-        Instantiate(blockPrefab, currTargetBlock.transform.position + currTargetFaceNormal * blockWidth, Quaternion.identity);
+        WorldHandler.instance.PlaceBlock(currTargetBlock.transform.position + currTargetFaceNormal * blockWidth);
     }
 
     #endregion
