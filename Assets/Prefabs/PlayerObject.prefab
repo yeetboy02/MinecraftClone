@@ -133,7 +133,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: d38e3b71-8f52-4986-99ae-86af2e10eb10
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &5402108266760341960
@@ -196,7 +196,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &5567988344539138487
 MonoBehaviour:
   m_ObjectHideFlags: 0
