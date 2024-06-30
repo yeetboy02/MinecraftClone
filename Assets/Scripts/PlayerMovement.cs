@@ -44,9 +44,16 @@ public class PlayerMovement : MonoBehaviour {
         controller.Move(currDirectionalMovementVector * movementSpeed * Time.deltaTime);
     }
 
+    #endregion
+
+    #region Rotation
+
     private void UpdateMovementDirection() {
-        // SET CURRENT DIRECTIONAL MOVEMENT VECTOR TO FACE IN CAMERA DIRECTION
-        currDirectionalMovementVector = Camera.main.transform.forward * currInputVector.z + Camera.main.transform.right * currInputVector.x;
+        // GET CAMERA ROTATION
+        Quaternion cameraRotation = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0);
+
+        // ROTATE PLAYER MOVEMENT DIRECTION
+        currDirectionalMovementVector = cameraRotation * currInputVector;
     }
 
     #endregion
