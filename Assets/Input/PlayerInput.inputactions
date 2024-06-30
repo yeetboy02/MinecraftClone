@@ -94,6 +94,34 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Camera",
+            "id": "d38e3b71-8f52-4986-99ae-86af2e10eb10",
+            "actions": [
+                {
+                    "name": "CameraMovement",
+                    "type": "Value",
+                    "id": "7c32565f-e37b-4d53-9dfb-a20e12b14a2b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "73e599bd-a853-4392-bac6-d3cc3823452a",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
