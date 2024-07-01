@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public class WorldHandler : MonoBehaviour {
 
@@ -21,6 +22,16 @@ public class WorldHandler : MonoBehaviour {
             LoadWorld(worldName);
     }
     
+    #endregion
+
+    #region BlockTypes
+
+    public enum BlockType {
+        Stone,
+        Dirt,
+        Air
+    }
+
     #endregion
 
     #region Parameters
@@ -54,21 +65,38 @@ public class WorldHandler : MonoBehaviour {
 
     #endregion
 
+    #region Getters/Setters
+
+    public BlockType GetBlockTypeAtPosition(Vector3 position) {
+        // CHECK IF POSITION IS WITHIN WORLD BOUNDS AND IF BLOCK EXISTS
+        if (position.x < 0 || position.x >= worldSize.x || position.y < 0 || position.y >= worldSize.y || position.z < 0 || position.z >= worldSize.z || currWorld[(int)position.x, (int)position.y, (int)position.z] == null)
+            return BlockType.Air;
+
+        // RETURN TYPE OF BLOCK AT INPUT POSITION
+       return currWorld[(int)position.x, (int)position.y, (int)position.z].GetComponent<Block>().GetBlockType();
+    }
+
+    #endregion
+
     #region Methods
 
-    public GameObject PlaceBlock(Vector3 position) {
+    public void SetCurrentWorldName(string worldName) {
+        this.worldName = worldName;
+    }
+
+    public void PlaceBlock(Vector3 position, BlockType blockType) {
         // CHECK IF POSITION IS WITHIN WORLD BOUNDS
         if (position.x < 0 || position.x >= worldSize.x || position.y < 0 || position.y >= worldSize.y || position.z < 0 || position.z >= worldSize.z)
-            return null;
+            return;
 
         // INSTANTIATE BLOCK
         GameObject currBlock = Instantiate(blockPrefab, position, Quaternion.identity);
 
+        // SET BLOCK TYPE
+        currBlock.GetComponent<Block>().SetBlockType(blockType);
+
         // ADD BLOCK TO WORLD BLOCK LIST
         currWorld[(int)position.x, (int)position.y, (int)position.z] = currBlock;
-
-        // RETURN CURRENTLY PLACED BLOCK
-        return currBlock;
     }
 
     public void BreakBlock(GameObject block) {
@@ -111,13 +139,14 @@ public class WorldHandler : MonoBehaviour {
         for (int x = 0; x < worldSize.x; x++) {
             for (int y = 0; y < worldSize.y; y++) {
                 for (int z = 0; z < worldSize.z; z++) {
-                    world[x, y, z] = currWorld[x, y, z] == null ? null : "Block";
+                    world[x, y, z] = currWorld[x, y, z] == null ? null : GetBlockTypeAtPosition(new Vector3(x, y, z)).ToString();
                 }
             }
         }
 
         return world;
     }
+
 
     #endregion
 
@@ -131,23 +160,23 @@ public class WorldHandler : MonoBehaviour {
         World world = JsonUtility.FromJson<World>(json);
 
         // DESERIALIZE WORLD BLOCK LIST
-        currWorld = DeserializeWorldList(world.blocks);
+        DeserializeWorldList(world.blocks);
     }
 
     #endregion
 
     #region Serialization
 
-    public List<Block> CreateSerializedWorld(string[ , , ] world) {
+    public List<SerializedBlock> CreateSerializedWorld(string[ , , ] world) {
         // CLEAR SERIALIZED WORLD LIST
-        List<Block> serializedWorld = new List<Block>();
+        List<SerializedBlock> serializedWorld = new List<SerializedBlock>();
 
         // CONVERT ARRAY OF GAMEOBJECTS TO LIST OF ALL BLOCKS
         for (int i = 0; i < currWorld.GetLength(0); i++) {
             for (int j = 0; j < currWorld.GetLength(1); j++) {
                 for (int k = 0; k < currWorld.GetLength(2); k++) {
                     if (currWorld[i, j, k] != null) {
-                        serializedWorld.Add(new Block(new Vector3(i, j, k), "Block"));
+                        serializedWorld.Add(new SerializedBlock(new Vector3(i, j, k), GetBlockTypeAtPosition(new Vector3(i, j, k)).ToString()));
                     }
                 }
             }
@@ -156,16 +185,14 @@ public class WorldHandler : MonoBehaviour {
         return serializedWorld;
     }
 
-    public GameObject[ , , ] DeserializeWorldList(List<Block> serializedWorld) {
+    public void DeserializeWorldList(List<SerializedBlock> serializedWorld) {
         // INITIALIZE WORLD ARRAY
         GameObject[ , , ] world = new GameObject[(int)worldSize.x, (int)worldSize.y, (int)worldSize.z];
 
         // CONVERT LIST OF BLOCKS TO ARRAY OF GAMEOBJECTS
-        foreach (Block block in serializedWorld) {
-            world[(int)block.position.x, (int)block.position.y, (int)block.position.z] = Instantiate(blockPrefab, block.position, Quaternion.identity);
+        foreach (SerializedBlock block in serializedWorld) {
+            PlaceBlock(block.position, (BlockType)Enum.Parse(typeof(BlockType), block.blockType));
         }
-
-        return world;
     }
 
     #endregion
@@ -174,17 +201,17 @@ public class WorldHandler : MonoBehaviour {
 
     [System.Serializable]
     public class World {
-        public List<Block> blocks;
+        public List<SerializedBlock> blocks;
     }
 
     [System.Serializable]
-    public struct Block {
+    public struct SerializedBlock {
         public Vector3 position;
-        public string block;
+        public string blockType;
 
-        public Block(Vector3 position, string block) {
+        public SerializedBlock(Vector3 position, string blockType) {
             this.position = position;
-            this.block = block;
+            this.blockType = blockType;
         }
     }
 

@@ -75,7 +75,7 @@ public class PlayerBlockInteraction : MonoBehaviour {
     private void BreakBlock() {
         // CHECK IF TARGET BLOCK EXISTS AND IS WITHIN WORLD BOUNDS
         if (currTargetBlock == null) return;
-        
+
         WorldHandler.instance.BreakBlock(currTargetBlock);
     }
 
@@ -92,7 +92,7 @@ public class PlayerBlockInteraction : MonoBehaviour {
         // CHECK IF CURRENTLY A BLOCK PLACABLE
         if (!currBlockPlaceable) return;
 
-        WorldHandler.instance.PlaceBlock(currTargetBlock.transform.position + currTargetFaceNormal * blockWidth);
+        WorldHandler.instance.PlaceBlock(currTargetBlock.transform.position + currTargetFaceNormal * blockWidth, WorldHandler.BlockType.Dirt);
     }
 
     #endregion
