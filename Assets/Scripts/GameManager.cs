@@ -71,6 +71,14 @@ public class GameManager : MonoBehaviour {
 
     #region EndGame
 
+    public void ExitGame() {
+        // SAVE CURRENT WORLD
+        WorldHandler.instance.SaveWorld();
+
+        // EXIT GAME
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void EndGame() {
         // END GAME
         Application.Quit();

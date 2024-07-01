@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4f3abc641dc4ad39f3c91c4608ed41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockPrefab: {fileID: 0}
+  blockPrefab: {fileID: 9069874869915349214, guid: e0fcfdeef52f5452ba4714705c092348, type: 3}
   blockLayerMask:
     serializedVersion: 2
     m_Bits: 8

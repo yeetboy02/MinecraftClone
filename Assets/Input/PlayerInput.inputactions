@@ -166,8 +166,30 @@
         {
             "name": "UI",
             "id": "eca65d59-eadf-4712-80c7-7ae03d5b9336",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "ToggleMenu",
+                    "type": "Button",
+                    "id": "6e4eff37-4382-4c3a-88fc-f49c4200fc6c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f0400c9e-9201-4307-8cee-3f8ebeec47dd",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
