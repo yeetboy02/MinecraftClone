@@ -9,6 +9,8 @@ public class CameraMovement : MonoBehaviour {
 
     private Vector2 rotationSpeed = new Vector2(2.0f, 2.0f);
 
+    private Vector2 rotationYConstraints = new Vector2(-90.0f, 90.0f);
+
     #endregion
 
     #region Variables
@@ -39,6 +41,9 @@ public class CameraMovement : MonoBehaviour {
         // ROTATE CAMERA
         currRotation.x -= currInputVector.y * rotationSpeed.x;
         currRotation.y += currInputVector.x * rotationSpeed.y;
+        
+        // LIMIT Y ROTATION
+        currRotation.x = Mathf.Clamp(currRotation.x, rotationYConstraints.x, rotationYConstraints.y);
 
         // APPLY ROTATION
         transform.rotation = Quaternion.Euler(currRotation.x, currRotation.y, currRotation.z);

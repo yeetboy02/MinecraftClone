@@ -9,11 +9,11 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
 
     void Start() {
-            if (instance != null)
-                    return;
-            instance = this;
+        if (instance != null)
+                return;
+        instance = this;
 
-            DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     #endregion
