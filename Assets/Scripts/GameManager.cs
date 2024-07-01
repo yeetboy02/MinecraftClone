@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,5 +18,64 @@ public class GameManager : MonoBehaviour {
 
     #endregion
 
-    
+    #region StartGame
+
+    public void StartGame(bool newWorld, string worldName) {
+        StartCoroutine(StartGameCoroutine(newWorld, worldName));
+    }
+
+    private IEnumerator StartGameCoroutine(bool newWorld, string worldName) {
+        // LOAD GAME SCENE
+        var levelLoad = SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
+
+        // WAIT FOR SCENE TO FINISH LOADING
+        while (!levelLoad.isDone) {
+            yield return null;
+        }
+
+        // START GAME
+        if (newWorld) {
+            CreateNewWorld(worldName);
+        } else {
+            LoadWorld(worldName);
+        }
+
+        yield return null;
+    }
+
+    #endregion
+
+    #region CreateNewWorld
+
+    private void CreateNewWorld(string worldName) {
+        // SET NEW WORLD NAME
+        WorldHandler.instance.SetCurrWorldName(worldName);
+
+        // SAVE NEW CREATED WORLD
+        WorldHandler.instance.SaveWorld();
+    }
+
+    #endregion
+
+    #region LoadWorld
+
+    private void LoadWorld(string worldName) {
+        // SET LOADED WORLD NAME
+        WorldHandler.instance.SetCurrWorldName(worldName);
+
+        // LOAD WORLD
+        WorldHandler.instance.LoadWorld(worldName);
+    }
+
+    #endregion
+
+    #region EndGame
+
+    public void EndGame() {
+        // END GAME
+        Application.Quit();
+    }
+
+    #endregion
+
 }

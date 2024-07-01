@@ -15,11 +15,10 @@ public class WorldHandler : MonoBehaviour {
                     return;
             instance = this;
 
+            DontDestroyOnLoad(gameObject);
+
             // INITIALIZE WORLD ARRAY
             currWorld = new GameObject[(int)worldSize.x, (int)worldSize.y, (int)worldSize.z];
-
-            // TEMPORARY LOAD WORLD
-            LoadWorld(worldName);
     }
     
     #endregion
@@ -40,8 +39,7 @@ public class WorldHandler : MonoBehaviour {
 
     private Vector3 worldSize = new Vector3(10, 10, 10);
 
-    // TEMPORARY WORLD
-    private string worldName = "World1";
+    private string worldName ;
 
     #endregion
 
@@ -67,6 +65,22 @@ public class WorldHandler : MonoBehaviour {
 
     #region Getters/Setters
 
+    public List<string> GetWorldNames() {
+        // GET ALL WORLD FILE NAMES
+        List<string> worldNames = new List<string>();
+
+        // GET ALL FILES IN WORLD DIRECTORY
+        DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/Worlds/");
+        FileInfo[] info = dir.GetFiles("*.json");
+
+        // ADD ALL FILE NAMES TO LIST WITHOUT FILE EXTENSION
+        foreach (FileInfo f in info) {
+            worldNames.Add(f.Name.Replace(".json", ""));
+        }
+
+        return worldNames;
+    }
+
     public BlockType GetBlockTypeAtPosition(Vector3 position) {
         // CHECK IF POSITION IS WITHIN WORLD BOUNDS AND IF BLOCK EXISTS
         if (position.x < 0 || position.x >= worldSize.x || position.y < 0 || position.y >= worldSize.y || position.z < 0 || position.z >= worldSize.z || currWorld[(int)position.x, (int)position.y, (int)position.z] == null)
@@ -80,7 +94,7 @@ public class WorldHandler : MonoBehaviour {
 
     #region Methods
 
-    public void SetCurrentWorldName(string worldName) {
+    public void SetCurrWorldName(string worldName) {
         this.worldName = worldName;
     }
 
@@ -108,9 +122,6 @@ public class WorldHandler : MonoBehaviour {
 
         // DESTROY BLOCK
         Destroy(block);
-
-        // TEMPORARY SAVE WORLD
-        SaveWorld();
     }
 
     #endregion
@@ -128,7 +139,7 @@ public class WorldHandler : MonoBehaviour {
         string json = JsonUtility.ToJson(world);
 
         // SAVE WORLD TO FILE
-        WriteJSON(Application.dataPath + "/Worlds/World1.json", json);
+        WriteJSON(Application.dataPath + "/Worlds/" + worldName + ".json", json);
     }
 
     private string[ , , ] CreateWorldFromCurrWorld() {
@@ -153,6 +164,9 @@ public class WorldHandler : MonoBehaviour {
     #region LoadWorld
 
     public void LoadWorld(string worldName) {
+        // CLEAR CURRENT WORLD
+        ClearWorld();
+
         // READ WORLD FROM FILE
         string json = ReadJSON(new FileInfo(Application.dataPath + "/Worlds/" + worldName + ".json"));
 
@@ -161,6 +175,22 @@ public class WorldHandler : MonoBehaviour {
 
         // DESERIALIZE WORLD BLOCK LIST
         DeserializeWorldList(world.blocks);
+    }
+
+    private void ClearWorld() {
+        // CLEAR WORLD
+        for (int i = 0; i < currWorld.GetLength(0); i++) {
+            for (int j = 0; j < currWorld.GetLength(1); j++) {
+                for (int k = 0; k < currWorld.GetLength(2); k++) {
+                    if (currWorld[i, j, k] != null) {
+                        Destroy(currWorld[i, j, k]);
+                    }
+                }
+            }
+        }
+
+        // RESET WORLD ARRAY
+        currWorld = new GameObject[(int)worldSize.x, (int)worldSize.y, (int)worldSize.z];
     }
 
     #endregion
@@ -186,9 +216,6 @@ public class WorldHandler : MonoBehaviour {
     }
 
     public void DeserializeWorldList(List<SerializedBlock> serializedWorld) {
-        // INITIALIZE WORLD ARRAY
-        GameObject[ , , ] world = new GameObject[(int)worldSize.x, (int)worldSize.y, (int)worldSize.z];
-
         // CONVERT LIST OF BLOCKS TO ARRAY OF GAMEOBJECTS
         foreach (SerializedBlock block in serializedWorld) {
             PlaceBlock(block.position, (BlockType)Enum.Parse(typeof(BlockType), block.blockType));
