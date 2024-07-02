@@ -44,7 +44,7 @@ public class WorldHandler : MonoBehaviour {
 
     [SerializeField] private GameObject blockPrefab;
 
-    private Vector3 worldSize = new Vector3(25, 25, 25);
+    private Vector3 worldSize = new Vector3(50, 50, 50);
 
     private string worldName ;
 
