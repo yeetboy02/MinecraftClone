@@ -242,19 +242,10 @@ public class WorldHandler : MonoBehaviour {
         // CLEAR SERIALIZED WORLD LIST
         List<SerializedBlock> serializedWorld = new List<SerializedBlock>();
 
-        // CONVERT ARRAY OF GAMEOBJECTS TO LIST OF ALL BLOCKS
-        // for (int i = 0; i < currWorld.GetLength(0); i++) {
-        //     for (int j = 0; j < currWorld.GetLength(1); j++) {
-        //         for (int k = 0; k < currWorld.GetLength(2); k++) {
-        //             if (currWorld[i, j, k] != null) {
-        //                 serializedWorld.Add(new SerializedBlock(new Vector3(i, j, k), GetBlockTypeAtPosition(new Vector3(i, j, k)).ToString()));
-        //             }
-        //         }
-        //     }
-        // }
-
+        // CONSTRUCT LINQ QUERY
         IEnumerable<GameObject> blockQuery = from currBlocks in currWorld.Cast<GameObject>() where currBlocks != null select currBlocks;
 
+        // CREATE LIST OF ALL BLOCKS USING LINQ QUERY
         foreach (GameObject block in blockQuery) {
             serializedWorld.Add(new SerializedBlock(block.transform.position, block.GetComponent<Block>().GetBlockType().ToString()));
         }
