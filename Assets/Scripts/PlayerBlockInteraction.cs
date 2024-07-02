@@ -29,7 +29,7 @@ public class PlayerBlockInteraction : MonoBehaviour {
 
     private bool currBlockPlaceable = false;
 
-    private WorldHandler.BlockType currBlockType = WorldHandler.BlockType.Dirt;
+    private WorldHandler.BlockType currBlockType = WorldHandler.BlockType.Stone;
 
     #endregion
 
