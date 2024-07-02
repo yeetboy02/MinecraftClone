@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1841806173421907644
 MeshFilter:
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f3ffc5bec8a3c4605a11bd08c864f412, type: 2}
+  - {fileID: 2100000, guid: 8a03fdc219baa4c4f9312cbdbb3c6865, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,3 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894b0ff9cb2ae4ee28e77b6ca29ffc0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: f3ffc5bec8a3c4605a11bd08c864f412, type: 2}
+  bricks: {fileID: 2100000, guid: 356c034808f734ae69304b737366de73, type: 2}
+  coal: {fileID: 2100000, guid: 8a03fdc219baa4c4f9312cbdbb3c6865, type: 2}
+  iron: {fileID: 2100000, guid: 25a2cd469a4144a63b68c38b14be924a, type: 2}
+  gold: {fileID: 2100000, guid: fdb98e5344fcd4a6aac0012bba76e614, type: 2}
+  netherrack: {fileID: 2100000, guid: da7f8e37278ee4a159e1861a5b9687e4, type: 2}
+  planks: {fileID: 2100000, guid: 65c1314464bfd400f8897473608a630b, type: 2}
+  stone: {fileID: 2100000, guid: bbc58d8e2daaf472a88398a6b8f8c2ec, type: 2}
+  grass: {fileID: 2100000, guid: 40b9abc457a654a9ea8a1980b8a3be1a, type: 2}

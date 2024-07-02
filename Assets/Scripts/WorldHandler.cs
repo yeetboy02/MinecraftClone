@@ -28,6 +28,13 @@ public class WorldHandler : MonoBehaviour {
     public enum BlockType {
         Stone,
         Dirt,
+        Grass,
+        Planks,
+        Iron,
+        Gold,
+        Coal,
+        Netherrack,
+        Bricks,
         Air
     }
 
@@ -37,7 +44,7 @@ public class WorldHandler : MonoBehaviour {
 
     [SerializeField] private GameObject blockPrefab;
 
-    private Vector3 worldSize = new Vector3(10, 10, 10);
+    private Vector3 worldSize = new Vector3(25, 25, 25);
 
     private string worldName ;
 
@@ -191,6 +198,39 @@ public class WorldHandler : MonoBehaviour {
 
         // RESET WORLD ARRAY
         currWorld = new GameObject[(int)worldSize.x, (int)worldSize.y, (int)worldSize.z];
+    }
+
+    #endregion
+
+    #region CreateNewWorld
+
+    public void CreateNewWorldFromTemplate() {
+        // PLACE 3 LAYERS OF STONE BLOCKS
+        for (int i = 0; i < worldSize.x; i++) {
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < worldSize.z; k++) {
+                    PlaceBlock(new Vector3(i, j, k), BlockType.Stone);
+                }
+            }
+        }
+
+        // PLACE 2 LAYERS OF DIRT BLOCKS
+        for (int i = 0; i < worldSize.x; i++) {
+            for (int j = 3; j < 5; j++) {
+                for (int k = 0; k < worldSize.z; k++) {
+                    PlaceBlock(new Vector3(i, j, k), BlockType.Dirt);
+                }
+            }
+        }
+
+        // PLACE 1 LAYER OF GRASS BLOCKS
+        for (int i = 0; i < worldSize.x; i++) {
+            for (int j = 5; j < 6; j++) {
+                for (int k = 0; k < worldSize.z; k++) {
+                    PlaceBlock(new Vector3(i, j, k), BlockType.Grass);
+                }
+            }
+        }
     }
 
     #endregion

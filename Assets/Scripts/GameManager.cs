@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour {
         // START GAME
         if (newWorld) {
             CreateNewWorld(worldName);
-        } else {
+        } 
+        else {
             LoadWorld(worldName);
         }
 
@@ -50,6 +51,9 @@ public class GameManager : MonoBehaviour {
     private void CreateNewWorld(string worldName) {
         // SET NEW WORLD NAME
         WorldHandler.instance.SetCurrWorldName(worldName);
+
+        // CREATE NEW WORLD
+        WorldHandler.instance.CreateNewWorldFromTemplate();
 
         // SAVE NEW CREATED WORLD
         WorldHandler.instance.SaveWorld();

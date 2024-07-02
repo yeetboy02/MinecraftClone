@@ -8,6 +8,8 @@ public class Block : MonoBehaviour {
 
     private WorldHandler.BlockType blockType;
 
+    [SerializeField] private Material dirt, bricks, coal, iron, gold, netherrack, planks, stone, grass;
+
     #endregion
 
     #region Getters/Setters
@@ -24,10 +26,31 @@ public class Block : MonoBehaviour {
         // SET BLOCK COLOR
         switch (blockType) {
             case WorldHandler.BlockType.Stone:
-                GetComponent<Renderer>().material.color = Color.gray;
+                GetComponent<MeshRenderer>().material = stone;
                 break;
             case WorldHandler.BlockType.Dirt:
-                GetComponent<Renderer>().material.color = Color.green;
+                GetComponent<MeshRenderer>().material = dirt;
+                break;
+            case WorldHandler.BlockType.Grass:
+                GetComponent<MeshRenderer>().material = grass;
+                break;
+            case WorldHandler.BlockType.Planks:
+                GetComponent<MeshRenderer>().material = planks;
+                break;
+            case WorldHandler.BlockType.Iron:
+                GetComponent<MeshRenderer>().material = iron;
+                break;
+            case WorldHandler.BlockType.Gold:
+                GetComponent<MeshRenderer>().material = gold;
+                break;
+            case WorldHandler.BlockType.Coal:
+                GetComponent<MeshRenderer>().material = coal;
+                break;
+            case WorldHandler.BlockType.Netherrack:
+                GetComponent<MeshRenderer>().material = netherrack;
+                break;
+            case WorldHandler.BlockType.Bricks:
+                GetComponent<MeshRenderer>().material = bricks;
                 break;
         }
     }
