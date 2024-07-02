@@ -103,7 +103,7 @@ public class MainMenuHandler : MonoBehaviour {
         foreach(string worldName in worldNames) {
             // CREATE NEW BUTTON
             Button newButton = Instantiate(loadWorldButton, loadWorldScreen.transform.position, Quaternion.identity);
-            newButton.transform.SetParent(loadWorldScreen.transform);
+            newButton.transform.SetParent(loadWorldScreen.transform.GetChild(1).transform);
 
             // SET BUTTON WORLD NAME
             newButton.GetComponent<LoadWorldButton>().SetWorldName(worldName);
