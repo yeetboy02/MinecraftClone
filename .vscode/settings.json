@@ -52,5 +52,5 @@
         "temp/":true,
         "Temp/":true
     },
-    "workbench.colorTheme": "Electron vue"
+    "workbench.colorTheme": "Material Monokai High Contrast"
 }
